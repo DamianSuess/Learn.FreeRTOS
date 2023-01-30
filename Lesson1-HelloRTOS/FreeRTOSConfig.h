@@ -49,7 +49,7 @@
 
 /* Run time stats gathering configuration options. */
 #define configRUN_TIME_COUNTER_TYPE             uint64_t
-configRUN_TIME_COUNTER_TYPE ulGetRunTimeCounterValue( void ); /* Prototype of function that returns run time counter. */
+////configRUN_TIME_COUNTER_TYPE ulGetRunTimeCounterValue( void ); /* Prototype of function that returns run time counter. */
 void vConfigureTimerForRunTimeStats( void );    /* Prototype of function that initialises the run time counter. */
 #define configGENERATE_RUN_TIME_STATS           1
 #define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() vConfigureTimerForRunTimeStats()
