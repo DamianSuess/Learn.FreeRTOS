@@ -23,8 +23,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FreeRTOSConfig.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="include\FreeRTOSConfig.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
