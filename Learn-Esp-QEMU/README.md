@@ -12,15 +12,38 @@ This example follows the [ESP32 Emulation with QEMU](https://www.youtube.com/wat
 
 ## Steps to Recreate
 
-1. Install Docker
-2. Create an empty project with a simple logger
-   * Add a basic logging line
-3. Select TERMINAL tab to build app
-   * Execute: `idf.py build`
-3. Create `commands.txt` file
-   * This contains how to generate the BIN file (bootloader and operation code)
-4. Execute in terminal contents of `commands.txt`
+### Create Project
 
+1. Create an empty project with a simple logger
+   * Add a basic logging line
+2. ESP-IDF > ESP-IDF Terminal
+   * Execute: `idf.py build`
+3. Start in Docker
+   * Path: `/workspaces/Learn.FreeRTOS/Learn-Esp-QEMU/`
+
+### Run Application
+
+```sh
+idf.py qemu monitor
+```
+
+[Reference](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/qemu.html#running-an-application)
+
+### Debugging
+
+To debug in an qemu, you'll use 2 terminal sessions. First to launch the QEMU monitor and the 2nd to start debugging.
+
+1. Commands > `ESP-IDF Terminal` to launch
+2. Build app and start QEMU with GDB server enabled
+   * `idf.py qemu gdb`
+2. Start QEMU Monitor: `idf.py qemu --gdb monitor`
+3. Run with Debugging: `idf.py gdb`
+4. The 1st session will display the apps output and 2nd for GDB controls
+   1. Press `ctrl + c` to initiate a breakpoint at the current execution and input a command
+   2. Command: `c` to continue execution
+   3. Command: `q` quit debugging
+
+[Reference](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/qemu.html#debugging)
 
 ### Commands.txt
 
@@ -41,13 +64,12 @@ See `build\flash_args` for BIN locations
 | `--flash_size 2MB` | Flash Size |
 
 
+## More ESP Examples
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+The example is used by command `idf.py create-project`
 
+For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
 
-
-## How to use example
 We encourage the users to use the example as a template for the new projects.
 A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
 
@@ -70,3 +92,10 @@ Below is short explanation of remaining files in the project folder.
 ```
 Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
 They are not used or needed when building with CMake and idf.py.
+
+## References
+
+* [ESP32 Emulation with QEMU](https://www.youtube.com/watch?v=lZp9L7Ij4Yo&t=29s)
+* https://developer.espressif.com/blog/whats-new-in-the-esp-idf-extension-for-vscode/
+* https://github.com/espressif/esp-toolchain-docs/blob/main/qemu/esp32/README.md
+  * See sections: Run QEMU

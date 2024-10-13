@@ -1,11 +1,16 @@
 # Build Commands
 
-## From Tutorial
+## Build Project (Video Tutorial)
+
+Build the project
 
 ```sh
-/./opt/esp/idf/components/esptool_py/esptool/esptool.py --chip esp32 merge_bin --output result.bin --fill-flash-size 4MB 0x1000 build/bootloader/bootloader.bin 0x8000 build/partition_table/partition-table.bin 0x10000 build/Learn-Esp-QEMU.bin --flash_mode dio --flash_freq 40m --flash_size 2MB
+## Build the project and merge BIN files into `merged_qemu.bin`
+/./opt/esp/idf/components/esptool_py/esptool/esptool.py --chip esp32 merge_bin --output merged_qemu.bin --fill-flash-size 4MB 0x1000 build/bootloader/bootloader.bin 0x8000 build/partition_table/partition-table.bin 0x10000 build/Learn-Esp-QEMU.bin --flash_mode dio --flash_freq 40m --flash_size 2MB
 
-qemu-system-xtensa -s -S -nographic -machine esp32 -drive file=result.bin,if=mtd,format=raw
+# Begin Debugging
+# NOTE: There's not GDB hooked up to listen
+qemu-system-xtensa -s -S -nographic -machine esp32 -drive file=merged_qemu.bin,if=mtd,format=raw
 ```
 
 
@@ -18,11 +23,15 @@ qemu-system-xtensa -s -S -nographic -machine esp32 -drive file=result.bin,if=mtd
 3. Copy the output and insert `build/` for our `.bin` paths below
 4. Execute it in terminal
 
-```sh
-OG:
-/opt/esp/python_env/idf5.4_py3.12_env/bin/python /opt/esp/idf/components/esptool_py/esptool/esptool.py --chip esp32 merge_bin -o merged_qemu.bin --flash_mode dout --flash_size 4MB --fill-flash-size 4MB 0x1000 bootloader/bootloader.bin 0x10000 Learn-Esp-QEMU.bin 0x8000 partition_table/partition-table.bin
+Original:
 
-Updated with `build/`:
+```sh
+/opt/esp/python_env/idf5.4_py3.12_env/bin/python /opt/esp/idf/components/esptool_py/esptool/esptool.py --chip esp32 merge_bin -o merged_qemu.bin --flash_mode dout --flash_size 4MB --fill-flash-size 4MB 0x1000 bootloader/bootloader.bin 0x10000 Learn-Esp-QEMU.bin 0x8000 partition_table/partition-table.bin
+```
+
+Update the command with `build/`:
+
+```sh
 /opt/esp/python_env/idf5.4_py3.12_env/bin/python /opt/esp/idf/components/esptool_py/esptool/esptool.py --chip esp32 merge_bin -o merged_qemu.bin --flash_mode dout --flash_size 4MB --fill-flash-size 4MB 0x1000 build/bootloader/bootloader.bin 0x10000 build/Learn-Esp-QEMU.bin 0x8000 build/partition_table/partition-table.bin
 ```
 
